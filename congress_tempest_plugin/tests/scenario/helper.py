@@ -45,5 +45,5 @@ def root_path():
     x, y = os.path.split(x)  # drop "helper.py"
     x, y = os.path.split(x)  # drop "scenario"
     x, y = os.path.split(x)  # drop "tests"
-    x, y = os.path.split(x)  # drop "congress_tempest_tests"
+    x, y = os.path.split(x)  # drop "congress_tempest_plugin"
     return x

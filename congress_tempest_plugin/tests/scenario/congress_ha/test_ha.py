@@ -28,9 +28,9 @@ from tempest.lib import exceptions
 from tempest import manager as tempestmanager
 from urllib3 import exceptions as urllib3_exceptions
 
-from congress_tempest_tests.services.policy import policy_client
-from congress_tempest_tests.tests.scenario import helper
-from congress_tempest_tests.tests.scenario import manager_congress
+from congress_tempest_plugin.services.policy import policy_client
+from congress_tempest_plugin.tests.scenario import helper
+from congress_tempest_plugin.tests.scenario import manager_congress
 
 CONF = config.CONF
 LOG = logging.getLogger(__name__)

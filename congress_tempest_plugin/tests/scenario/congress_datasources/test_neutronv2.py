@@ -21,8 +21,8 @@ from tempest.lib.common.utils import test_utils
 from tempest.lib import decorators
 from tempest.lib import exceptions
 
-from congress_tempest_tests.tests.scenario import helper
-from congress_tempest_tests.tests.scenario import manager_congress
+from congress_tempest_plugin.tests.scenario import helper
+from congress_tempest_plugin.tests.scenario import manager_congress
 
 CONF = config.CONF
 

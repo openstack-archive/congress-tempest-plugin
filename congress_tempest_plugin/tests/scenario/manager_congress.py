@@ -22,11 +22,11 @@ from tempest import config
 from tempest.lib.common.utils import data_utils
 from tempest import manager as tempestmanager
 
-from congress_tempest_tests.services.congress_network import qos_client
-from congress_tempest_tests.services.congress_network import qos_rule_client
-from congress_tempest_tests.services.policy import policy_client
+from congress_tempest_plugin.services.congress_network import qos_client
+from congress_tempest_plugin.services.congress_network import qos_rule_client
+from congress_tempest_plugin.services.policy import policy_client
 # use local copy of tempest scenario manager during upstream refactoring
-from congress_tempest_tests.tests.scenario import manager
+from congress_tempest_plugin.tests.scenario import manager
 
 CONF = config.CONF
 LOG = logging.getLogger(__name__)
