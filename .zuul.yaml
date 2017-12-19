@@ -1,0 +1,8 @@
+- project:
+    name: openstack/congress-tempest-plugin
+    check:
+      jobs:
+        - congress-devstack-api-mysql
+    gate:
+      jobs:
+        - congress-devstack-api-mysql
