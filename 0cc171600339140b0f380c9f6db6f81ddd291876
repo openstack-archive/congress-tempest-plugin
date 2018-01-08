@@ -1,0 +1,10 @@
+Code-Review+2: Eric Kao <ekcs.openstack@gmail.com>
+Code-Review+1: Nam Nguyen Hoai <namnh@vn.fujitsu.com>
+Code-Review+2: Anusha Ramineni <anusha.ramineni@nectechnologies.in>
+Workflow+1: Anusha Ramineni <anusha.ramineni@nectechnologies.in>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Mon, 08 Jan 2018 09:26:56 +0000
+Reviewed-on: https://review.openstack.org/531114
+Project: openstack/congress-tempest-plugin
+Branch: refs/heads/master
