@@ -19,6 +19,7 @@ import re
 import string
 
 from oslo_log import log as logging
+from telemetry_tempest_plugin.aodh.service import client as alarms_client
 from tempest.common import credentials_factory as credentials
 from tempest import config
 from tempest.lib.common.utils import data_utils
@@ -80,7 +81,6 @@ class ScenarioPolicyBase(manager.NetworkScenarioTest):
 
         # Get alarms client
         if getattr(CONF.service_available, 'aodh_plugin', False):
-            import aodh.tests.tempest.service.client as alarms_client
             cls.os_admin.alarms_client = (
                 alarms_client.AlarmingClient(
                     auth_prov,
