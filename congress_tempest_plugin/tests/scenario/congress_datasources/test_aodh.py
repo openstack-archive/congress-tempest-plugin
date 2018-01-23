@@ -29,7 +29,7 @@ class TestAodhDriver(manager_congress.ScenarioPolicyBase):
     @classmethod
     def skip_checks(cls):
         super(TestAodhDriver, cls).skip_checks()
-        if not getattr(CONF.service_available, 'aodh_plugin', False):
+        if not getattr(CONF.service_available, 'aodh', False):
             msg = ("%s skipped as aodh is not available" %
                    cls.__class__.__name__)
             raise cls.skipException(msg)
