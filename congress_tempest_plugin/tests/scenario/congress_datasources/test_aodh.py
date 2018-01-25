@@ -42,15 +42,12 @@ class TestAodhDriver(manager_congress.ScenarioPolicyBase):
 
     @decorators.attr(type='smoke')
     def test_aodh_alarms_table(self):
-        # Add test alarm
-        rule = {'meter_name': 'cpu_util',
-                'comparison_operator': 'gt',
-                'threshold': 80.0,
-                'period': 70}
-        self.alarms_client.create_alarm(name='test-alarm',
-                                        type='threshold',
-                                        enabled=False,
-                                        threshold_rule=rule)
+        self.alarms_client.create_alarm(
+            name='test-alarm',
+            enabled=False,
+            type='event',
+            event_rule={})
+
         alarms_schema = (
             self.os_admin.congress_client.show_datasource_table_schema(
                 self.datasource_id, 'alarms')['columns'])
@@ -68,9 +65,6 @@ class TestAodhDriver(manager_congress.ScenarioPolicyBase):
             results = (
                 self.os_admin.congress_client.list_datasource_rows(
                     self.datasource_id, 'alarms'))
-            rule_data = (
-                self.os_admin.congress_client.list_datasource_rows(
-                    self.datasource_id, 'alarms.threshold_rule'))['results']
 
             for row in results['results']:
                 try:
@@ -78,15 +72,6 @@ class TestAodhDriver(manager_congress.ScenarioPolicyBase):
                 except KeyError:
                     return False
                 for index in range(len(alarms_schema)):
-                    if alarms_schema[index]['name'] == 'threshold_rule_id':
-                        threshold_rule = alarm_row['threshold_rule']
-                        data = [r['data'] for r in rule_data
-                                if r['data'][0] == row['data'][index]]
-                        for l in data:
-                            if str(threshold_rule[l[1]]) != str(l[2]):
-                                return False
-                        continue
-
                     if (str(row['data'][index]) !=
                             str(alarm_row[alarms_schema[index]['name']])):
                         return False
