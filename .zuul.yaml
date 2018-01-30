@@ -2,6 +2,11 @@
     check:
       jobs:
         - congress-devstack-api-mysql
+        - congress-pe-replicated-mysql
+        - congress-devstack-py35-api-mysql
     gate:
       jobs:
         - congress-devstack-api-mysql
+        - congress-pe-replicated-mysql
+        - congress-devstack-py35-api-mysql
+
