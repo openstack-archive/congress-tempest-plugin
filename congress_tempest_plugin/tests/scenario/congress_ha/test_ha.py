@@ -193,7 +193,6 @@ class TestHA(manager_congress.ScenarioPolicyBase):
         LOG.debug('created fake driver: %s', str(ret['id']))
         return ret['id']
 
-    @decorators.skip_because(bug="1745112")
     @decorators.attr(type='smoke')
     def test_datasource_db_sync_add_remove(self):
         # Verify that a replica adds a datasource when a datasource
