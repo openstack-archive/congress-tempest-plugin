@@ -68,7 +68,7 @@ class ScenarioPolicyBase(manager.NetworkScenarioTest):
             auth_prov, "network", CONF.identity.region)
 
         # Get alarms client
-        if getattr(CONF.service_available, 'aodh_plugin', False):
+        if getattr(CONF.service_available, 'aodh', False):
             import telemetry_tempest_plugin.aodh.service.client as alarm_client
             cls.os_admin.alarms_client = (
                 alarm_client.AlarmingClient(
