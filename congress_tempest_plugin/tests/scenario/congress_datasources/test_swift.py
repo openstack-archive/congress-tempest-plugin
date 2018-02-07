@@ -36,8 +36,6 @@ class TestSwiftDriver(manager_congress.ScenarioPolicyBase):
 
     # TODO(testing): checks on correctness of data in updates
 
-    # swift driver experiences auth error in test
-    @decorators.skip_because(bug="980688")
     @decorators.attr(type='smoke')
     def test_update_no_error(self):
         if not test_utils.call_until_true(
