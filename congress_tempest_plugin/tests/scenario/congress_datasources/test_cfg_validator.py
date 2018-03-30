@@ -104,7 +104,9 @@ class TestCfgValidatorDriver(manager_congress.ScenarioPolicyBase):
     def test_options_sent(self):
         "Test that there is at least one value for congress option."
 
-        driver = u'congress.datasources.cfgvalidator_driver.ValidatorDriver'
+        # driver config option is deprecated, no longer valid
+        # driver = u'congress.datasources.cfgvalidator_driver.ValidatorDriver'
+        auth_strategy = 'keystone'
         client = self.os_admin.congress_client
         schema = (
             client.show_datasource_table_schema(
@@ -118,7 +120,7 @@ class TestCfgValidatorDriver(manager_congress.ScenarioPolicyBase):
             if res is None:
                 return False
             row = next((r for r in res
-                        if r['data'][col_value] == driver),
+                        if r['data'][col_value] == auth_strategy),
                        None)
             return row is not None
         if not test_utils.call_until_true(
