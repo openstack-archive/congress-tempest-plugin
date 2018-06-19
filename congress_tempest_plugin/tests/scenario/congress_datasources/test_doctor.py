@@ -83,5 +83,5 @@ class TestDoctorDriver(manager_congress.ScenarioPolicyBase):
 
         if results['results'][0]['data'] != expected_row:
             msg = ('inserted row %s is not expected row %s'
-                   % (results['data'], expected_row))
+                   % (results['results'][0]['data'], expected_row))
             raise exceptions.InvalidStructure(msg)
