@@ -36,11 +36,15 @@ class CongressTempestPlugin(plugins.TempestPlugin):
                                   config_congress.ServiceAvailableGroup)
         config.register_opt_group(conf, config_congress.congressha_group,
                                   config_congress.CongressHAGroup)
+        config.register_opt_group(conf, config_congress.congressz3_group,
+                                  config_congress.CongressZ3Group)
 
     def get_opt_lists(self):
         return [
             (config_congress.congressha_group.name,
              config_congress.CongressHAGroup),
+            (config_congress.congressz3_group.name,
+             config_congress.CongressZ3Group),
             (config_congress.service_available_group.name,
              config_congress.ServiceAvailableGroup)
         ]

@@ -35,3 +35,11 @@ CongressHAGroup = [
                default=4001,
                help="The listening port for a replica congress server. "),
 ]
+
+congressz3_group = cfg.OptGroup(name="congressz3", title="Congress Z3 Options")
+
+CongressZ3Group = [
+    cfg.BoolOpt('enabled',
+                default=False,
+                help="Whether Z3 is installed or not for Congress")
+]
