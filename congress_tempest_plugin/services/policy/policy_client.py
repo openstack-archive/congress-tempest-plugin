@@ -39,6 +39,7 @@ class PolicyClient(rest_client.RestClient):
     datasource_table_path = '/v1/data-sources/%s/tables/%s'
     datasource_status = '/v1/data-sources/%s/status'
     datasource_schema = '/v1/data-sources/%s/schema'
+    datasource_webhook = '/v1/data-sources/%s/webhook'
     datasource_table_schema = '/v1/data-sources/%s/tables/%s/spec'
     datasource_rows = '/v1/data-sources/%s/tables/%s/rows'
     driver = '/v1/system/drivers'
@@ -190,6 +191,12 @@ class PolicyClient(rest_client.RestClient):
         body = json.dumps(rows)
         resp, body = self.put(
             self.datasource_rows % (datasource_name, table_id), body)
+        return self._resp_helper(resp)
+
+    def send_datasource_webhook(self, datasource_name, body):
+        body = json.dumps(body)
+        resp, body = self.post(
+            self.datasource_webhook % datasource_name, body=body)
         return self._resp_helper(resp)
 
     def execute_datasource_action(self, service_name, action, body):
