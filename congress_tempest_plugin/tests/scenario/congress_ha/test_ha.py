@@ -138,7 +138,8 @@ class TestHA(manager_congress.ScenarioPolicyBase):
         except exceptions.Unauthorized:
             LOG.debug("connection refused")
             return False
-        except (socket.error, urllib3_exceptions.MaxRetryError):
+        except (socket.error, urllib3_exceptions.MaxRetryError,
+                exceptions.UnexpectedResponseCode):
             LOG.debug("Replica server not ready")
             return False
         except Exception:
