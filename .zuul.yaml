@@ -1,12 +1,44 @@
+- job:
+    name: congress-devstack-api-mysql-rocky
+    parent: congress-devstack-api-mysql
+    override-checkout: stable/rocky
+
+- job:
+    name: congress-pe-replicated-mysql-rocky
+    parent: congress-pe-replicated-mysql
+    override-checkout: stable/rocky
+
+- job:
+    name: congress-devstack-py35-api-mysql-rocky
+    parent: congress-devstack-py35-api-mysql
+    override-checkout: stable/rocky
+
+- job:
+    name: congress-devstack-api-mysql-queens
+    parent: congress-devstack-api-mysql
+    override-checkout: stable/queens
+
+- job:
+    name: congress-pe-replicated-mysql-queens
+    parent: congress-pe-replicated-mysql
+    override-checkout: stable/queens
+
+- job:
+    name: congress-devstack-py35-api-mysql-queens
+    parent: congress-devstack-py35-api-mysql
+    override-checkout: stable/queens
+
 - project:
     check:
       jobs:
         - congress-devstack-api-mysql
         - congress-pe-replicated-mysql
         - congress-devstack-py35-api-mysql
+        - congress-devstack-api-mysql-rocky
+        - congress-devstack-py35-api-mysql-rocky
+        - congress-devstack-api-mysql-queens
+        - congress-devstack-py35-api-mysql-queens
     gate:
       jobs:
         - congress-devstack-api-mysql
-        - congress-pe-replicated-mysql
         - congress-devstack-py35-api-mysql
-
