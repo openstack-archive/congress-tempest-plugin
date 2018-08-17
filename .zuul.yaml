@@ -1,10 +1,14 @@
 - project:
+    templates:
+      - check-requirements
+      - tempest-plugin-jobs
     check:
       jobs:
         - congress-devstack-api-mysql
         - congress-pe-replicated-mysql
         - congress-devstack-py35-api-mysql
     gate:
+      queue: congress
       jobs:
         - congress-devstack-api-mysql
         - congress-pe-replicated-mysql
