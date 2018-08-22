@@ -48,6 +48,14 @@ class TestMonascaDriver(manager_congress.ScenarioPolicyBase):
 
 
 class TestMonascaWebhookDriver(manager_congress.ScenarioPolicyBase):
+
+    @classmethod
+    def skip_checks(cls):
+        super(TestMonascaWebhookDriver, cls).skip_checks()
+        if not CONF.congress_feature_enabled.monasca_webhook:
+            msg = ("feature not available in this congress version")
+            raise cls.skipException(msg)
+
     def setUp(self):
         super(TestMonascaWebhookDriver, self).setUp()
         monasca_setting = {

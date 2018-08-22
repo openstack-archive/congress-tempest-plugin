@@ -41,6 +41,14 @@ class TestNovaDriver(manager_congress.ScenarioPolicyBase):
             cls.enabled = False
             raise cls.skipException(msg)
 
+        if not CONF.congress_feature_enabled.nova_driver:
+            # queens flag for skipping nova driver tests because
+            # congress nova driver in queens does not work with the new
+            # novaclient 10.1.0 now part of upper-constraints
+            # https://review.openstack.org/#/c/571540/
+            msg = 'Nova driver not available.'
+            raise cls.skipException(msg)
+
     def setUp(self):
         super(TestNovaDriver, self).setUp()
         self.keypairs = {}

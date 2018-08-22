@@ -34,6 +34,8 @@ class CongressTempestPlugin(plugins.TempestPlugin):
         config.register_opt_group(conf,
                                   config_congress.service_available_group,
                                   config_congress.ServiceAvailableGroup)
+        config.register_opt_group(conf, config_congress.congress_feature_group,
+                                  config_congress.CongressFeatureGroup)
         config.register_opt_group(conf, config_congress.congressha_group,
                                   config_congress.CongressHAGroup)
         config.register_opt_group(conf, config_congress.congressz3_group,
@@ -46,5 +48,7 @@ class CongressTempestPlugin(plugins.TempestPlugin):
             (config_congress.congressz3_group.name,
              config_congress.CongressZ3Group),
             (config_congress.service_available_group.name,
-             config_congress.ServiceAvailableGroup)
+             config_congress.ServiceAvailableGroup),
+            (config_congress.congress_feature_group.name,
+             config_congress.CongressFeatureGroup),
         ]

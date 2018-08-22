@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from tempest import config
 from tempest.lib.common.utils import test_utils
 from tempest.lib import decorators
 from tempest.lib import exceptions
@@ -22,7 +23,18 @@ from congress_tempest_plugin.tests.scenario import helper
 from congress_tempest_plugin.tests.scenario import manager_congress
 
 
+CONF = config.CONF
+
+
 class TestVitrageDriver(manager_congress.ScenarioPolicyBase):
+
+    @classmethod
+    def skip_checks(cls):
+        super(TestVitrageDriver, cls).skip_checks()
+        if not CONF.congress_feature_enabled.vitrage_webhook:
+            msg = ("feature not available in this congress version")
+            raise cls.skipException(msg)
+
     def setUp(self):
         super(TestVitrageDriver, self).setUp()
         vitrage_setting = {

@@ -14,6 +14,7 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+import testtools
 import time
 
 from tempest.common import utils
@@ -134,6 +135,12 @@ class TestPolicyBasicOps(manager_congress.ScenarioPolicyBase):
 
     @decorators.attr(type='smoke')
     @utils.services('compute', 'network')
+    @testtools.skipUnless(CONF.congress_feature_enabled.nova_driver,
+                          'Test involving Nova driver skipped for queens.')
+    # queens flag for skipping nova driver tests because
+    # congress nova driver in queens does not work with the new
+    # novaclient 10.1.0 now part of upper-constraints
+    # https://review.openstack.org/#/c/571540/
     def test_reactive_enforcement(self):
         servers_client = self.os_admin.servers_client
         server_name = 'server_under_test'

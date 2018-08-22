@@ -25,6 +25,21 @@ ServiceAvailableGroup = [
                 default=True,
                 help="Whether or not Congress is expected to be available"),
 ]
+
+congress_feature_group = cfg.OptGroup(name="congress-feature-enabled",
+                                      title="Congress Feature Flags")
+CongressFeatureGroup = [
+    cfg.BoolOpt('monasca_webhook',
+                default=False,
+                help="monasca_webhook feature available"),
+    cfg.BoolOpt('vitrage_webhook',
+                default=False,
+                help="vitrage_webhook feature available"),
+    cfg.BoolOpt('nova_driver',
+                default=True,
+                help="nova driver feature available"),
+]
+
 congressha_group = cfg.OptGroup(name="congressha", title="Congress HA Options")
 
 CongressHAGroup = [
