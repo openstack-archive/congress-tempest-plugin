@@ -36,7 +36,7 @@ CongressFeatureGroup = [
                 default=False,
                 help="vitrage_webhook feature available"),
     cfg.BoolOpt('nova_driver',
-                default=True,
+                default=False,
                 help="nova driver feature available"),
 ]
 
