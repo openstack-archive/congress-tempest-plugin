@@ -13,6 +13,8 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+import testtools
+
 from tempest.common import utils
 from tempest import config
 from tempest.lib.common.utils import test_utils
@@ -55,15 +57,15 @@ class TestNovaDriver(manager_congress.ScenarioPolicyBase):
         self.servers = []
         self.datasource_id = manager_congress.get_datasource_id(
             self.os_admin.congress_client, 'nova')
+        self._setup_network_and_servers()
 
     @decorators.attr(type='smoke')
     @utils.services('compute', 'network')
     def test_nova_datasource_driver_servers(self):
-        self._setup_network_and_servers()
-
         server_schema = (
             self.os_admin.congress_client.show_datasource_table_schema(
                 self.datasource_id, 'servers')['columns'])
+
         # Convert some of the column names.
 
         def convert_col(col):
@@ -80,7 +82,7 @@ class TestNovaDriver(manager_congress.ScenarioPolicyBase):
             else:
                 return col
 
-        keys = [convert_col(c['name']) for c in server_schema]
+        keys_servers = [convert_col(c['name']) for c in server_schema]
 
         @helper.retry_on_exception
         def _check_data_table_nova_servers():
@@ -89,16 +91,16 @@ class TestNovaDriver(manager_congress.ScenarioPolicyBase):
                     self.datasource_id, 'servers'))
             for row in results['results']:
                 match = True
-                for index in range(len(keys)):
-                    if keys[index] in ['image', 'flavor']:
-                        val = self.servers[0][keys[index]]['id']
+                for index in range(len(keys_servers)):
+                    if keys_servers[index] in ['image', 'flavor']:
+                        val = self.servers[0][keys_servers[index]]['id']
                     # Test servers created doesn't have this attribute,
                     # so ignoring the same in tempest tests.
-                    elif keys[index] in \
+                    elif keys_servers[index] in \
                             ['OS-EXT-SRV-ATTR:hypervisor_hostname']:
                         continue
                     else:
-                        val = self.servers[0][keys[index]]
+                        val = self.servers[0][keys_servers[index]]
 
                     if row['data'][index] != val:
                         match = False
@@ -109,6 +111,83 @@ class TestNovaDriver(manager_congress.ScenarioPolicyBase):
 
         if not test_utils.call_until_true(func=_check_data_table_nova_servers,
                                           duration=100, sleep_for=5):
+            raise exceptions.TimeoutException("Data did not converge in time "
+                                              "or failure in server")
+
+    @decorators.attr(type='smoke')
+    @utils.services('compute', 'network')
+    @testtools.skipUnless(
+        CONF.congress_feature_enabled.nova_servers_addresses_table,
+        'test checks nova server addresses added in stein')
+    def test_nova_datasource_driver_servers_addresses(self):
+        server_addresses_schema = (
+            self.os_admin.congress_client.show_datasource_table_schema(
+                self.datasource_id, 'servers.addresses')['columns'])
+
+        def convert_col(col):
+            if col == 'server_id':
+                return 'id'
+            elif col == 'address':
+                return 'addr'
+            elif col == 'mac_address':
+                return 'OS-EXT-IPS-MAC:mac_addr'
+            elif col == 'address_type':
+                return 'OS-EXT-IPS:type'
+            else:
+                return col
+
+        @helper.retry_on_exception
+        def _check_data_table_nova_servers_addresses():
+            # Note(Akhil): Right now comparing data of only one server we are
+            # creating in test. Which in future will be tested on all servers.
+
+            # updating self.servers after associating floating ip to it
+            self.servers[0] = self.show_server(self.servers[0]['id'])
+            addresses = self.servers[0]['addresses']
+            # according to current test server created there is only
+            # one network attached. On changing test server following
+            # method of getting network name must be updated
+            network_name = list(addresses.keys())[0]
+
+            # checks if floating ip is updated in self.servers,
+            # alongside fixed ip
+            if len(addresses[network_name]) != 2:
+                return False
+
+            keys = [convert_col(c['name']) for c in server_addresses_schema]
+            results = (
+                self.os_admin.congress_client.list_datasource_rows(
+                    self.datasource_id, 'servers.addresses'))
+
+            # Note: Below section is checking that every address in addresses
+            # is reflected in results['results']
+            match = True
+            # traversing addresses of test server from nova service
+            for address in addresses[network_name]:
+                # traversing server addresses from congress nova datasource
+                for row in results['results']:
+                    for index in range(len(keys)):
+                        if keys[index] == 'id':
+                            val = self.servers[0]['id']
+                        elif keys[index] == 'network_name':
+                            val = network_name
+                        else:
+                            val = address[keys[index]]
+
+                        if row['data'][index] != val:
+                            match = False
+                            break
+                        match = True
+                    if match:
+                        break
+                if not match:
+                    return False
+            if match:
+                return True
+            return False
+        if not test_utils.call_until_true(
+                func=_check_data_table_nova_servers_addresses,
+                duration=100, sleep_for=5):
             raise exceptions.TimeoutException("Data did not converge in time "
                                               "or failure in server")
 

@@ -115,6 +115,11 @@ class ScenarioTest(tempest.test.BaseTestCase):
         self.addCleanup(client.delete_keypair, name)
         return body['keypair']
 
+    def show_server(self, server_id, client=None):
+        if not client:
+            client = self.servers_client
+        return client.show_server(server_id)['server']
+
     def create_server(self, name=None, image_id=None, flavor=None,
                       validatable=False, wait_until='ACTIVE',
                       clients=None, **kwargs):
