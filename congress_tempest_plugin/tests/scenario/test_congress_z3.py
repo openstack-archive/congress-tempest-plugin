@@ -114,3 +114,63 @@ class TestZ3(manager_congress.ScenarioPolicyBase):
             formatter, "res")
         extracted = [row['data'][0] for row in result['results']]
         self.assertEqual(expected, sorted(extracted))
+
+    @decorators.attr(type='smoke')
+    def test_z3_builins(self):
+        """Basic builtins test
+
+        This test verifies some facts on basic builtins.
+        """
+        policy = self._add_policy("comp", "z3")
+        x = 456
+        y = 123
+        self._add_rule(policy, 'x(%d)' % x)
+        self._add_rule(policy, 'y(%d)' % y)
+        self._add_rule(
+            policy,
+            ('arith(a,b,c,d,e,f) :- x(x), y(y), builtin:plus(x, y, a), '
+             'builtin:minus(x, y, b), builtin:mul(x, y, c), '
+             'builtin:and(x,y,d), builtin:or(x,y,e), builtin:bnot(x,f)'))
+        result = self.os_admin.congress_client.list_policy_rows(
+            policy, "arith")
+        extracted = [row['data'] for row in result['results']]
+        expected = [[x + y, x - y, x * y, x & y, x | y, ~x & 0xffffffff]]
+        self.assertEqual(expected, extracted)
+
+    @decorators.attr(type='smoke')
+    def test_z3_compare_builins(self):
+        """Basic builtins test for comparison
+
+        This test verifies some facts on basic builtins.
+        """
+        policy = self._add_policy("comp", "z3")
+        x = 456
+        y = 123
+        self._add_rule(policy, 'x(%d)' % x)
+        self._add_rule(policy, 'y(%d)' % y)
+        checks = [
+            ('equal(x,y)', x == y),
+            ('equal(x,x)', x == x),
+            ('lt(x,y)', x < y),
+            ('lt(y,x)', y < x),
+            ('lt(x,x)', x < x),
+            ('lteq(x,y)', x <= y),
+            ('lteq(y,x)', y <= x),
+            ('lteq(x,x)', x <= x),
+            ('gt(x,y)', x > y),
+            ('gt(y,x)', y > x),
+            ('gt(x,x)', x > x),
+            ('gteq(x,y)', x >= y),
+            ('gteq(y,x)', y >= x),
+            ('gteq(x,x)', x >= x)
+        ]
+        for (num, (pred, _)) in enumerate(checks):
+            self._add_rule(
+                policy,
+                ('check(%d) :- x(x), y(y), builtin:%s' % (num, pred)))
+        result = self.os_admin.congress_client.list_policy_rows(
+            policy, "check")
+        extracted = [row['data'][0] for row in result['results']]
+        extracted.sort()
+        expected = [n for (n, (_, c)) in enumerate(checks) if c]
+        self.assertEqual(expected, extracted)
