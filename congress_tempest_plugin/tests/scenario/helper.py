@@ -18,15 +18,30 @@ import os
 import tenacity
 
 
-@tenacity.retry(stop=tenacity.stop_after_attempt(20),
-                wait=tenacity.wait_fixed(1))
+def retry_check_function_return_value_condition(
+        f, check_condition, error_msg=None, retry_interval=1,
+        retry_attempts=20):
+    """Check if function f returns value s.t check_condition(value) is True."""
+
+    @tenacity.retry(stop=tenacity.stop_after_attempt(retry_attempts),
+                    wait=tenacity.wait_fixed(retry_interval))
+    def retried_function():
+        r = f()
+        if not check_condition(r):
+            raise Exception(error_msg or
+                            'Actual return value ({}) does not satisfy '
+                            'provided condition'.format(r))
+        return r
+
+    return retried_function()
+
+
 def retry_check_function_return_value(f, expected_value, error_msg=None):
     """Check if function f returns expected value."""
     if not error_msg:
         error_msg = 'Expected value "%s" not found' % expected_value
-    r = f()
-    if r != expected_value:
-        raise Exception(error_msg)
+    retry_check_function_return_value_condition(
+        f, lambda v: v == expected_value, error_msg)
 
 
 def retry_on_exception(f):

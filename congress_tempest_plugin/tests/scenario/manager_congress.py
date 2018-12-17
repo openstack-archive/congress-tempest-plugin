@@ -32,6 +32,7 @@ from congress_tempest_plugin.services.congress_network import qos_client
 from congress_tempest_plugin.services.congress_network import qos_rule_client
 from congress_tempest_plugin.services.policy import policy_client
 # use local copy of tempest scenario manager during upstream refactoring
+from congress_tempest_plugin.tests.scenario import helper
 from congress_tempest_plugin.tests.scenario import manager
 
 CONF = config.CONF
@@ -261,9 +262,9 @@ class ScenarioPolicyBase(manager.NetworkScenarioTest):
                                                          src=floating_ip))
                 raise
 
-    def _create_random_policy(self):
-        policy_name = "nova_%s" % ''.join(random.choice(string.ascii_lowercase)
-                                          for x in range(10))
+    def _create_random_policy(self, prefix='nova'):
+        policy_name = prefix + "_%s" % ''.join(
+            random.choice(string.ascii_lowercase) for x in range(10))
         body = {"name": policy_name}
         resp = self.os_admin.congress_client.create_policy(body)
         self.addCleanup(self.os_admin.congress_client.delete_policy,
@@ -286,6 +287,13 @@ class ScenarioPolicyBase(manager.NetworkScenarioTest):
         else:
             raise Exception('Failed to create policy rule (%s, %s)'
                             % (policy_name, rule))
+
+    def _create_policy_rule_retry(
+            self, policy_name, rule, rule_name=None, comment=None):
+        return helper.retry_check_function_return_value_condition(
+            lambda: self._create_policy_rule(
+                policy_name, rule, rule_name, comment),
+            lambda v: True, retry_attempts=20, retry_interval=2)
 
 
 class DatasourceDriverTestBase(ScenarioPolicyBase):
