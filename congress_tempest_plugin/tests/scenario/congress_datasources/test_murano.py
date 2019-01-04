@@ -36,8 +36,8 @@ class TestMuranoDriver(manager_congress.ScenarioPolicyBase):
                    cls.__class__.__name__)
             raise cls.skipException(msg)
 
-        if not (CONF.network.project_networks_reachable
-                or CONF.network.public_network_id):
+        if not (CONF.network.project_networks_reachable or
+                CONF.network.public_network_id):
             msg = ('Either project_networks_reachable must be "true", or '
                    'public_network_id must be defined.')
             cls.enabled = False

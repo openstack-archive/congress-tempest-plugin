@@ -37,8 +37,8 @@ class TestNeutronV2QosDriver(manager_congress.ScenarioPolicyBase):
     def skip_checks(cls):
         super(TestNeutronV2QosDriver, cls).skip_checks()
         # TODO(qos): check whether QoS extension is enabled
-        if not (CONF.network.project_networks_reachable
-                or CONF.network.public_network_id):
+        if not (CONF.network.project_networks_reachable or
+                CONF.network.public_network_id):
             msg = ('Either project_networks_reachable must be "true", or '
                    'public_network_id must be defined.')
             cls.enabled = False
