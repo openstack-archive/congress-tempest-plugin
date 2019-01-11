@@ -15,6 +15,7 @@
 "Tempest tests for config datasource"
 import random
 import string
+import testtools
 
 from tempest import config
 from tempest.lib import decorators
@@ -116,7 +117,9 @@ class TestZ3(manager_congress.ScenarioPolicyBase):
         self.assertEqual(expected, sorted(extracted))
 
     @decorators.attr(type='smoke')
-    def test_z3_builins(self):
+    @testtools.skipUnless(CONF.congressz3.support_builtins,
+                          'Z3 builtins not supported in this version.')
+    def test_z3_builtins(self):
         """Basic builtins test
 
         This test verifies some facts on basic builtins.
@@ -138,7 +141,9 @@ class TestZ3(manager_congress.ScenarioPolicyBase):
         self.assertEqual(expected, extracted)
 
     @decorators.attr(type='smoke')
-    def test_z3_compare_builins(self):
+    @testtools.skipUnless(CONF.congressz3.support_builtins,
+                          'Z3 builtins not supported in this version.')
+    def test_z3_compare_builtins(self):
         """Basic builtins test for comparison
 
         This test verifies some facts on basic builtins.

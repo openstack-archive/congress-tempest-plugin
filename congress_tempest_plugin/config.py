@@ -56,5 +56,8 @@ congressz3_group = cfg.OptGroup(name="congressz3", title="Congress Z3 Options")
 CongressZ3Group = [
     cfg.BoolOpt('enabled',
                 default=False,
-                help="Whether Z3 is installed or not for Congress")
+                help="Whether Z3 is installed or not for Congress"),
+    cfg.BoolOpt('support_builtins',
+                default=True,
+                help="builtins supported by Z3 engine"),
 ]

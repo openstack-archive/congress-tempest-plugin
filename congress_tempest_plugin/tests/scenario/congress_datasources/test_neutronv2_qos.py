@@ -131,6 +131,7 @@ class TestNeutronV2QosDriver(manager_congress.ScenarioPolicyBase):
         self.qos_rules.append(qos_rule)
         return qos_rule
 
+    @decorators.skip_because(bug='1811740')
     @decorators.attr(type='smoke')
     @tempest_utils.services('network')
     def test_neutronv2_ports_tables(self):

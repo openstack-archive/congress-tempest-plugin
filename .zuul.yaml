@@ -40,7 +40,8 @@
         - congress-devstack-api-mysql-rocky
         - congress-devstack-py35-api-mysql-rocky
         - congress-devstack-api-mysql-queens
-        - congress-devstack-py35-api-mysql-queens
+        # FIXME: temporarily disabled pending fix
+        # - congress-devstack-py35-api-mysql-queens
     gate:
       queue: congress
       jobs:
