@@ -26,7 +26,8 @@
 - job:
     name: congress-devstack-py35-api-mysql-queens
     parent: congress-devstack-py35-api-mysql
-    override-checkout: stable/queens
+    run: playbooks/legacy/congress-devstack-py35-api-mysql-queens/run.yaml
+    post-run: playbooks/legacy/congress-devstack-py35-api-mysql-queens/post.yaml
 
 - project:
     templates:
