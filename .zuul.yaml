@@ -1,33 +1,146 @@
+#### Legacy jobs no longer used in stein; carried here for testing Q and R ####
 - job:
-    name: congress-devstack-api-mysql-rocky
-    parent: congress-devstack-api-mysql
-    override-checkout: stable/rocky
+    name: congress-legacy-devstack-api-base
+    parent: legacy-dsvm-base
+    irrelevant-files:
+      - ^.*\.rst$
+      - ^doc/.*$
+      - ^congress/tests/.*$
+      - ^releasenotes/.*$
+    required-projects:
+      - openstack-infra/devstack-gate
+      - openstack/aodh
+      - openstack/python-aodhclient
+      - openstack/congress
+      - openstack/congress-dashboard
+      - openstack/congress-tempest-plugin
+      - openstack/python-congressclient
+      - openstack/murano
+      - openstack/murano-dashboard
+      - openstack/python-muranoclient
+      - openstack/mistral
+      - openstack/python-mistralclient
+      - openstack/mistral-tempest-plugin
+      - openstack/murano-tempest-plugin
+      - openstack/telemetry-tempest-plugin
+      - openstack/heat-tempest-plugin
+      - openstack/monasca-agent
+      - openstack/monasca-api
+      - openstack/monasca-common
+      - openstack/monasca-grafana-datasource
+      - openstack/monasca-notification
+      - openstack/monasca-persister
+      - openstack/monasca-statsd
+      - openstack/monasca-thresh
+      - openstack/monasca-ui
+      - openstack/python-monascaclient
+      - openstack/monasca-tempest-plugin
+    run: playbooks/legacy/congress-devstack-api-base/run.yaml
+    post-run: playbooks/legacy/congress-devstack-api-base/post.yaml
+    timeout: 6000
 
 - job:
-    name: congress-pe-replicated-mysql-rocky
-    parent: congress-pe-replicated-mysql
-    override-checkout: stable/rocky
+    name: congress-legacy-pe-replicated-base
+    parent: legacy-dsvm-base
+    vars:
+      database: mysql
+    irrelevant-files:
+      - ^.*\.rst$
+      - ^doc/.*$
+      - ^congress/tests/.*$
+      - ^releasenotes/.*$
+    required-projects:
+      - openstack-infra/devstack-gate
+      - openstack/aodh
+      - openstack/python-aodhclient
+      - openstack/congress
+      - openstack/congress-dashboard
+      - openstack/congress-tempest-plugin
+      - openstack/python-congressclient
+      - openstack/murano
+      - openstack/murano-dashboard
+      - openstack/python-muranoclient
+      - openstack/mistral
+      - openstack/python-mistralclient
+      - openstack/mistral-tempest-plugin
+      - openstack/murano-tempest-plugin
+      - openstack/telemetry-tempest-plugin
+      - openstack/heat-tempest-plugin
+    run: playbooks/legacy/congress-legacy-pe-replicated-base/run.yaml
+    post-run: playbooks/legacy/congress-legacy-pe-replicated-base/post.yaml
+    timeout: 6000
 
 - job:
-    name: congress-devstack-py35-api-mysql-rocky
-    parent: congress-devstack-py35-api-mysql
-    override-checkout: stable/rocky
+    name: congress-legacy-devstack-api-mysql
+    parent: congress-legacy-devstack-api-base
+    vars:
+      database: mysql
 
 - job:
-    name: congress-devstack-api-mysql-queens
-    parent: congress-devstack-api-mysql
-    override-checkout: stable/queens
+    name: congress-legacy-devstack-api-postgresql
+    parent: congress-legacy-devstack-api-base
+    voting: false
+    vars:
+      database: postgresql
 
 - job:
-    name: congress-pe-replicated-mysql-queens
-    parent: congress-pe-replicated-mysql
-    override-checkout: stable/queens
+    name: congress-legacy-devstack-py35-api-mysql
+    parent: legacy-dsvm-base
+    irrelevant-files:
+      - ^.*\.rst$
+      - ^doc/.*$
+      - ^congress/tests/.*$
+      - ^releasenotes/.*$
+    required-projects:
+      - openstack-infra/devstack-gate
+      - openstack/congress
+      - openstack/congress-tempest-plugin
+      - openstack/congress-dashboard
+      - openstack/python-congressclient
+      - openstack/murano
+      - openstack/murano-dashboard
+      - openstack/python-muranoclient
+      - openstack/murano-tempest-plugin
+      - openstack/heat-tempest-plugin
+    run: playbooks/legacy/congress-devstack-py35-api-mysql/run.yaml
+    post-run: playbooks/legacy/congress-devstack-py35-api-mysql/post.yaml
+    timeout: 6000
 
 - job:
-    name: congress-devstack-py35-api-mysql-queens
-    parent: congress-devstack-py35-api-mysql
-    run: playbooks/legacy/congress-devstack-py35-api-mysql-queens/run.yaml
-    post-run: playbooks/legacy/congress-devstack-py35-api-mysql-queens/post.yaml
+    name: congress-legacy-pe-replicated-mysql
+    parent: congress-legacy-pe-replicated-base
+    voting: false
+
+- job:
+    name: congress-legacy-pe-replicated-postgresql
+    parent: congress-legacy-pe-replicated-base
+    voting: false
+    vars:
+      database: postgresql
+
+- job:
+    name: congress-legacy-devstack-api-mysql-rocky
+    parent: congress-legacy-devstack-api-mysql
+    run: playbooks/legacy/congress-devstack-api-py27-rocky/run.yaml
+    post-run: playbooks/legacy/congress-devstack-api-py27-rocky/post.yaml
+
+- job:
+    name: congress-legacy-devstack-api-py35-mysql-rocky
+    parent: congress-legacy-devstack-py35-api-mysql
+    run: playbooks/legacy/congress-devstack-api-py35-rocky/run.yaml
+    post-run: playbooks/legacy/congress-devstack-api-py35-rocky/post.yaml
+
+- job:
+    name: congress-legacy-devstack-api-mysql-queens
+    parent: congress-legacy-devstack-api-mysql
+    run: playbooks/legacy/congress-devstack-api-py27-queens/run.yaml
+    post-run: playbooks/legacy/congress-devstack-api-py27-queens/post.yaml
+
+- job:
+    name: congress-legacy-devstack-api-py35-mysql-queens
+    parent: congress-legacy-devstack-py35-api-mysql
+    run: playbooks/legacy/congress-devstack-api-py35-queens/run.yaml
+    post-run: playbooks/legacy/congress-devstack-api-py35-queens/post.yaml
 
 - project:
     templates:
@@ -35,16 +148,15 @@
       - tempest-plugin-jobs
     check:
       jobs:
-        - congress-devstack-api-mysql
-        - congress-pe-replicated-mysql
-        - congress-devstack-py35-api-mysql
-        - congress-devstack-api-mysql-rocky
-        - congress-devstack-py35-api-mysql-rocky
-        - congress-devstack-api-mysql-queens
-        # FIXME: temporarily disabled pending fix
-        # - congress-devstack-py35-api-mysql-queens
+        - congress-tempest-py2-mysql
+        - congress-tempest-py3-mysql
+        - congress-tempest-replicated-postgresql
+        - congress-legacy-devstack-api-mysql-rocky
+        - congress-legacy-devstack-api-py35-mysql-rocky
+        - congress-legacy-devstack-api-mysql-queens
+        - congress-legacy-devstack-api-py35-mysql-queens
     gate:
       queue: congress
       jobs:
-        - congress-devstack-api-mysql
-        - congress-devstack-py35-api-mysql
+        - congress-tempest-py2-mysql
+        - congress-tempest-py3-mysql
