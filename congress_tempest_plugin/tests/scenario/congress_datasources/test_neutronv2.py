@@ -50,11 +50,11 @@ class TestNeutronV2Driver(manager_congress.ScenarioPolicyBase):
         super(TestNeutronV2Driver, self).setUp()
         self.os_primary = clients.Manager(
             self.os_admin.auth_provider.credentials)
-        self.networks_client = self.os_primary.networks_client
-        self.subnets_client = self.os_primary.subnets_client
-        self.ports_client = self.os_primary.ports_client
-        self.security_groups_client = self.os_primary.security_groups_client
-        self.routers_client = self.os_primary.routers_client
+        self.networks_client = self.os_admin.networks_client
+        self.subnets_client = self.os_admin.subnets_client
+        self.ports_client = self.os_admin.ports_client
+        self.security_groups_client = self.os_admin.security_groups_client
+        self.routers_client = self.os_admin.routers_client
         self.datasource_id = manager_congress.get_datasource_id(
             self.os_admin.congress_client, 'neutronv2')
 
