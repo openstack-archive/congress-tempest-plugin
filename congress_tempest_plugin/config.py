@@ -41,6 +41,9 @@ CongressFeatureGroup = [
     cfg.BoolOpt('nova_driver',
                 default=True,
                 help="nova driver feature available"),
+    cfg.BoolOpt('nova_servers_addresses_table',
+                default=True,
+                help="nova driver servers.addresses table available"),
 ]
 
 congressha_group = cfg.OptGroup(name="congressha", title="Congress HA Options")
