@@ -293,7 +293,7 @@ class ScenarioPolicyBase(manager.NetworkScenarioTest):
         return helper.retry_check_function_return_value_condition(
             lambda: self._create_policy_rule(
                 policy_name, rule, rule_name, comment),
-            lambda v: True, retry_attempts=20, retry_interval=2)
+            lambda v: True, retry_attempts=50, retry_interval=2)
 
 
 class DatasourceDriverTestBase(ScenarioPolicyBase):
