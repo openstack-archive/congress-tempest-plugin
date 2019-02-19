@@ -78,6 +78,7 @@ class TestHA(manager_congress.ScenarioPolicyBase):
         index = conf.find('[DEFAULT]') + len('[DEFAULT]\n')
         conf = (conf[:index] +
                 'bind_port = %d\n' % port_num +
+                'rpc_response_timeout = 10\n' +
                 conf[index:])
         # set datasource sync period interval to 5
         conf = conf.replace('datasource_sync_period = 30',
@@ -212,7 +213,7 @@ class TestHA(manager_congress.ScenarioPolicyBase):
             if not test_utils.call_until_true(
                     func=lambda: self._check_replica_server_status(
                         replica_client),
-                    duration=60, sleep_for=1):
+                    duration=90, sleep_for=2):
                 for port_num in self.replicas:
                     procs = self.replicas[port_num][0]
                     for service_key in procs:
