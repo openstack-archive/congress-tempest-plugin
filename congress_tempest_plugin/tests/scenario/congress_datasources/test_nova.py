@@ -75,6 +75,8 @@ class TestNovaDriver(manager_congress.ScenarioPolicyBase):
                 return 'image'
             elif col == 'flavor_id':
                 return 'flavor'
+            elif col == 'created_at':
+                return 'created'
             elif col == 'zone':
                 return 'OS-EXT-AZ:availability_zone'
             elif col == 'host_name':
