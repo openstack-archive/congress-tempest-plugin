@@ -123,24 +123,28 @@
     parent: congress-legacy-devstack-api-mysql
     run: playbooks/legacy/congress-devstack-api-py27-rocky/run.yaml
     post-run: playbooks/legacy/congress-devstack-api-py27-rocky/post.yaml
+    nodeset: openstack-single-node-xenial
 
 - job:
     name: congress-legacy-devstack-api-py35-mysql-rocky
     parent: congress-legacy-devstack-py35-api-mysql
     run: playbooks/legacy/congress-devstack-api-py35-rocky/run.yaml
     post-run: playbooks/legacy/congress-devstack-api-py35-rocky/post.yaml
+    nodeset: openstack-single-node-xenial
 
 - job:
     name: congress-legacy-devstack-api-mysql-queens
     parent: congress-legacy-devstack-api-mysql
     run: playbooks/legacy/congress-devstack-api-py27-queens/run.yaml
     post-run: playbooks/legacy/congress-devstack-api-py27-queens/post.yaml
+    nodeset: openstack-single-node-xenial
 
 - job:
     name: congress-legacy-devstack-api-py35-mysql-queens
     parent: congress-legacy-devstack-py35-api-mysql
     run: playbooks/legacy/congress-devstack-api-py35-queens/run.yaml
     post-run: playbooks/legacy/congress-devstack-api-py35-queens/post.yaml
+    nodeset: openstack-single-node-xenial
 
 - project:
     templates:
