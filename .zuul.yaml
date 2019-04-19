@@ -8,7 +8,7 @@
       - ^congress/tests/.*$
       - ^releasenotes/.*$
     required-projects:
-      - openstack-infra/devstack-gate
+      - openstack/devstack-gate
       - openstack/aodh
       - openstack/python-aodhclient
       - openstack/congress
@@ -50,7 +50,7 @@
       - ^congress/tests/.*$
       - ^releasenotes/.*$
     required-projects:
-      - openstack-infra/devstack-gate
+      - openstack/devstack-gate
       - openstack/aodh
       - openstack/python-aodhclient
       - openstack/congress
@@ -92,7 +92,7 @@
       - ^congress/tests/.*$
       - ^releasenotes/.*$
     required-projects:
-      - openstack-infra/devstack-gate
+      - openstack/devstack-gate
       - openstack/congress
       - openstack/congress-tempest-plugin
       - openstack/congress-dashboard
