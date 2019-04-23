@@ -140,7 +140,7 @@ class TestPolicyBasicOps(manager_congress.ScenarioPolicyBase):
     # queens flag for skipping nova driver tests because
     # congress nova driver in queens does not work with the new
     # novaclient 10.1.0 now part of upper-constraints
-    # https://review.openstack.org/#/c/571540/
+    # https://review.opendev.org/#/c/571540/
     def test_reactive_enforcement(self):
         servers_client = self.os_admin.servers_client
         server_name = 'server_under_test'

@@ -8,7 +8,7 @@ This project covers Tempest tests for Congress project.
 * Free software: Apache license
 * Documentation: https://docs.openstack.org/congress-tempest-plugin/latest
 * Release notes: https://docs.openstack.org/releasenotes/congress/
-* Source: https://git.openstack.org/cgit/openstack/congress-tempest-plugin
+* Source: https://opendev.org/openstack/congress-tempest-plugin
 * Bugs: https://bugs.launchpad.net/congress
 
 Tempest Integration
