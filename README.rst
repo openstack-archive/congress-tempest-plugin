@@ -1,6 +1,6 @@
-===============================
+=======================
 congress-tempest-plugin
-===============================
+=======================
 
 Tempest Plugin for Congress project.
 This project covers Tempest tests for Congress project.
