@@ -20,7 +20,7 @@ class QosRuleClient(base.BaseNetworkClient):
 
         For a full list of available parameters, please refer to the official
         API reference:
-        https://developer.openstack.org/api-ref/network/v2/index.html#quality-of-service
+        https://docs.openstack.org/api-ref/network/v2/index.html#quality-of-service
         """
         uri = '/qos/policies/%s/%s' % (qos_policy_id, qos_rule_type)
         post_data = {qos_rule_type[:-1]: kwargs}
@@ -32,7 +32,7 @@ class QosRuleClient(base.BaseNetworkClient):
 
         For a full list of available parameters, please refer to the official
         API reference:
-        https://developer.openstack.org/api-ref/network/v2/index.html#quality-of-service
+        https://docs.openstack.org/api-ref/network/v2/index.html#quality-of-service
         """
         uri = '/qos/policies/%s/%s/%s' % (qos_policy_id,
                                           qos_rule_type, qos_rule_id)
@@ -45,7 +45,7 @@ class QosRuleClient(base.BaseNetworkClient):
 
         For a full list of available parameters, please refer to the official
         API reference:
-        https://developer.openstack.org/api-ref/network/v2/index.html#quality-of-service
+        https://docs.openstack.org/api-ref/network/v2/index.html#quality-of-service
         """
         uri = '/qos/policies/%s/%s/%s' % (qos_policy_id,
                                           qos_rule_type, qos_rule_id)
@@ -56,7 +56,7 @@ class QosRuleClient(base.BaseNetworkClient):
 
         For a full list of available parameters, please refer to the official
         API reference:
-        https://developer.openstack.org/api-ref/network/v2/index.html#quality-of-service
+        https://docs.openstack.org/api-ref/network/v2/index.html#quality-of-service
         """
         uri = '/qos/policies/%s/%s/%s' % (qos_policy_id,
                                           qos_rule_type, qos_rule_id)
@@ -67,7 +67,7 @@ class QosRuleClient(base.BaseNetworkClient):
 
         For a full list of available parameters, please refer to the official
         API reference:
-        https://developer.openstack.org/api-ref/network/v2/index.html#quality-of-service
+        https://docs.openstack.org/api-ref/network/v2/index.html#quality-of-service
         """
         uri = '/qos/policies/%s' % (qos_policy_id)
         return self.list_resources(uri, **filters)

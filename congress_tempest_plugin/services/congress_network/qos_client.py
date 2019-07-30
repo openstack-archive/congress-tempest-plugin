@@ -20,7 +20,7 @@ class QosPoliciesClient(base.BaseNetworkClient):
 
         For a full list of available parameters, please refer to the official
         API reference:
-        https://developer.openstack.org/api-ref/network/v2/index.html#quality-of-service
+        https://docs.openstack.org/api-ref/network/v2/index.html#quality-of-service
         """
         uri = '/qos/policies'
         post_data = {'policy': kwargs}
@@ -31,7 +31,7 @@ class QosPoliciesClient(base.BaseNetworkClient):
 
         For a full list of available parameters, please refer to the official
         API reference:
-        https://developer.openstack.org/api-ref/network/v2/index.html#quality-of-service
+        https://docs.openstack.org/api-ref/network/v2/index.html#quality-of-service
         """
         uri = '/qos/policies/%s' % qos_policy_id
         post_data = {'policy': kwargs}
@@ -42,7 +42,7 @@ class QosPoliciesClient(base.BaseNetworkClient):
 
         For a full list of available parameters, please refer to the official
         API reference:
-        https://developer.openstack.org/api-ref/network/v2/index.html#quality-of-service
+        https://docs.openstack.org/api-ref/network/v2/index.html#quality-of-service
         """
         uri = '/qos/policies/%s' % qos_policy_id
         return self.show_resource(uri, **fields)
@@ -52,7 +52,7 @@ class QosPoliciesClient(base.BaseNetworkClient):
 
         For a full list of available parameters, please refer to the official
         API reference:
-        https://developer.openstack.org/api-ref/network/v2/index.html#quality-of-service
+        https://docs.openstack.org/api-ref/network/v2/index.html#quality-of-service
         """
         uri = '/qos/policies/%s' % qos_policy_id
         return self.delete_resource(uri)
@@ -62,7 +62,7 @@ class QosPoliciesClient(base.BaseNetworkClient):
 
         For a full list of available parameters, please refer to the official
         API reference:
-        https://developer.openstack.org/api-ref/network/v2/index.html#quality-of-service
+        https://docs.openstack.org/api-ref/network/v2/index.html#quality-of-service
         """
         uri = '/qos/policies'
         return self.list_resources(uri, **filters)
