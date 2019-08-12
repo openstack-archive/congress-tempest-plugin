@@ -151,6 +151,7 @@
       - check-requirements
       - tempest-plugin-jobs
       - publish-openstack-docs-pti
+      - openstack-python3-train-jobs
     check:
       jobs:
         - congress-tempest-py2-mysql
