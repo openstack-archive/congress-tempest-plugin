@@ -150,6 +150,7 @@
     templates:
       - check-requirements
       - tempest-plugin-jobs
+      - publish-openstack-docs-pti
     check:
       jobs:
         - congress-tempest-py2-mysql
