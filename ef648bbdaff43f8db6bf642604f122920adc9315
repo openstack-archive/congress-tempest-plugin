@@ -1,0 +1,9 @@
+Code-Review+2: Eric Kao <ekcs.openstack@gmail.com>
+Code-Review+1: dharmendra kushwaha <dharmendra.kushwaha@india.nec.com>
+Workflow+1: Eric Kao <ekcs.openstack@gmail.com>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Tue, 27 Aug 2019 20:49:30 +0000
+Reviewed-on: https://review.opendev.org/674166
+Project: openstack/congress-tempest-plugin
+Branch: refs/heads/master
