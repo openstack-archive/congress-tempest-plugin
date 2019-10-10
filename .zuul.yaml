@@ -1,3 +1,23 @@
+- job:
+    name: congress-tempest-py2-mysql-train
+    parent: congress-tempest-py2
+    override-checkout: stable/train
+
+- job:
+    name: congress-tempest-py3-mysql-train
+    parent: congress-tempest-py3
+    override-checkout: stable/train
+
+- job:
+    name: congress-tempest-py2-mysql-stein
+    parent: congress-tempest-py2
+    override-checkout: stable/stein
+
+- job:
+    name: congress-tempest-py3-mysql-stein
+    parent: congress-tempest-py3
+    override-checkout: stable/stein
+
 #### Legacy jobs no longer used in stein; carried here for testing Q and R ####
 - job:
     name: congress-legacy-devstack-api-base
@@ -157,6 +177,10 @@
         - congress-tempest-py2-mysql
         - congress-tempest-py3-mysql
         - congress-tempest-replicated-postgresql
+        - congress-tempest-py2-mysql-train
+        - congress-tempest-py3-mysql-train
+        - congress-tempest-py2-mysql-stein
+        - congress-tempest-py3-mysql-stein
         - congress-legacy-devstack-api-mysql-rocky
         - congress-legacy-devstack-api-py35-mysql-rocky
         - congress-legacy-devstack-api-mysql-queens
