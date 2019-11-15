@@ -1,17 +1,7 @@
 - job:
-    name: congress-tempest-py2-mysql-train
-    parent: congress-tempest-py2
-    override-checkout: stable/train
-
-- job:
     name: congress-tempest-py3-mysql-train
     parent: congress-tempest-py3
     override-checkout: stable/train
-
-- job:
-    name: congress-tempest-py2-mysql-stein
-    parent: congress-tempest-py2
-    override-checkout: stable/stein
 
 - job:
     name: congress-tempest-py3-mysql-stein
@@ -91,12 +81,6 @@
     timeout: 6000
 
 - job:
-    name: congress-legacy-devstack-api-mysql
-    parent: congress-legacy-devstack-api-base
-    vars:
-      database: mysql
-
-- job:
     name: congress-legacy-devstack-api-postgresql
     parent: congress-legacy-devstack-api-base
     voting: false
@@ -139,24 +123,10 @@
       database: postgresql
 
 - job:
-    name: congress-legacy-devstack-api-mysql-rocky
-    parent: congress-legacy-devstack-api-mysql
-    run: playbooks/legacy/congress-devstack-api-py27-rocky/run.yaml
-    post-run: playbooks/legacy/congress-devstack-api-py27-rocky/post.yaml
-    nodeset: openstack-single-node-xenial
-
-- job:
     name: congress-legacy-devstack-api-py35-mysql-rocky
     parent: congress-legacy-devstack-py35-api-mysql
     run: playbooks/legacy/congress-devstack-api-py35-rocky/run.yaml
     post-run: playbooks/legacy/congress-devstack-api-py35-rocky/post.yaml
-    nodeset: openstack-single-node-xenial
-
-- job:
-    name: congress-legacy-devstack-api-mysql-queens
-    parent: congress-legacy-devstack-api-mysql
-    run: playbooks/legacy/congress-devstack-api-py27-queens/run.yaml
-    post-run: playbooks/legacy/congress-devstack-api-py27-queens/post.yaml
     nodeset: openstack-single-node-xenial
 
 - job:
@@ -171,22 +141,16 @@
       - check-requirements
       - tempest-plugin-jobs
       - publish-openstack-docs-pti
-      - openstack-python3-train-jobs
+      - openstack-python3-ussuri-jobs
     check:
       jobs:
-        - congress-tempest-py2-mysql
         - congress-tempest-py3-mysql
         - congress-tempest-replicated-postgresql
-        - congress-tempest-py2-mysql-train
         - congress-tempest-py3-mysql-train
-        - congress-tempest-py2-mysql-stein
         - congress-tempest-py3-mysql-stein
-        - congress-legacy-devstack-api-mysql-rocky
         - congress-legacy-devstack-api-py35-mysql-rocky
-        - congress-legacy-devstack-api-mysql-queens
         - congress-legacy-devstack-api-py35-mysql-queens
     gate:
       queue: congress
       jobs:
-        - congress-tempest-py2-mysql
         - congress-tempest-py3-mysql

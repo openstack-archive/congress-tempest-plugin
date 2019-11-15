@@ -56,6 +56,7 @@
 
           export PYTHONUNBUFFERED=true
           export DEVSTACK_GATE_TEMPEST=1
+          export DEVSTACK_GATE_USE_PYTHON3=1
           export DEVSTACK_GATE_TEMPEST_REGEX="congress_tempest_plugin"
           export DEVSTACK_GATE_NEUTRON=1
           export PROJECTS="openstack/congress $PROJECTS"
